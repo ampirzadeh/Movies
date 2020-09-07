@@ -34,5 +34,9 @@
 <script>
 export default {
   name: 'Home',
+  mounted() {
+    alert(${{ secrets.VUE_APP_APIKEY }})
+    alert(process.env.VUE_APP_APIKEY)
+  }
 }
 </script>
