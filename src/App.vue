@@ -1,32 +1,65 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+  <v-app>
+    <v-app-bar
+      flat
+      elevate-on-scroll
+      app
+      v-if="$route.path !== '/'"
+      color="white"
+    >
+      <v-toolbar-title
+        class="d-none d-md-block"
+        v-text="'AMP\s Movie Search'"
+      />
+      <v-spacer />
+      <v-text-field
+        @keyup.enter="
+          $router.push({
+            name: 'Search',
+            query: { s: $refs.searchBar.lazyValue },
+          })
+        "
+        label="Search a Movie"
+        prepend-inner-icon="search"
+        :value="$route.query.s"
+        ref="searchBar"
+        hide-details
+        single-line
+        rounded
+        filled
+        dense
+      />
+      <v-spacer />
+      <v-text-field
+        @keyup.enter="
+          $router.push({
+            name: 'Search',
+            query: { s: $refs.searchBar.lazyValue, y: $refs.yearBar.lazyValue },
+          })
+        "
+        label="Movie's Year (Optional)"
+        append-icon="event"
+        :value="$route.query.y"
+        ref="yearBar"
+        hide-details
+        single-line
+        rounded
+        filled
+        dense
+      />
+      <v-spacer />
+    </v-app-bar>
+
+    <v-main>
+      <v-container fluid>
+        <router-view />
+      </v-container>
+    </v-main>
+  </v-app>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+<script>
+export default {
+  name: 'App',
 }
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
+</script>
