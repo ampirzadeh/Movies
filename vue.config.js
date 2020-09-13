@@ -2,11 +2,12 @@ module.exports = {
   transpileDependencies: ['vuetify'],
   publicPath:
     process.env.NODE_ENV === 'production'
-      ? `/${process.env.npm_package_name}/`
+      ? `/Movies/`
       : '/',
   pwa: {
     workboxOptions: {
       skipWaiting: true,
     },
+    themeColor: '#777',
   },
 }
