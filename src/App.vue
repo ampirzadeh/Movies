@@ -30,18 +30,20 @@
             dense
             clearable
             @keyup.enter="
-              bars.searchBar
-                ? $router.push({
-                    name: 'Search',
-                    query:
-                      bars.searchBar && bars.yearBar
-                        ? {
-                            s: bars.searchBar,
-                            y: bars.yearBar,
-                          }
-                        : { s: bars.searchBar },
-                  })
-                : $router.push({ name: 'Home' })
+              bars.searchBar && $route.name !== 'Search'
+                ? $router
+                    .push({
+                      name: 'Search',
+                      query:
+                        bars.searchBar && bars.yearBar
+                          ? {
+                              s: bars.searchBar,
+                              y: bars.yearBar,
+                            }
+                          : { s: bars.searchBar },
+                    })
+                    .catch(() => {})
+                : $router.push({ name: 'Home' }).catch(() => {})
             "
           />
           <v-spacer :key="bar.icon" />
@@ -52,6 +54,20 @@
     <v-main>
       <router-view />
     </v-main>
+
+    <v-snackbar
+      app
+      bottom
+      left
+      :value="updateExists"
+      :timeout="-1"
+      color="primary"
+    >
+      An update is available
+      <v-btn text @click="refreshApp">
+        Update
+      </v-btn>
+    </v-snackbar>
 
     <v-footer app absolute>
       <span>
@@ -66,8 +82,11 @@
 </template>
 
 <script>
+import update from './mixins/update'
+
 export default {
   name: 'App',
+  mixins: [update],
   watch: {
     $route() {
       this.bars.searchBar = this.$route.query.s
