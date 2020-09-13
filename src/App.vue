@@ -2,14 +2,6 @@
   <v-app>
     <v-app-bar app flat absolute>
       <v-toolbar-title v-text="'AMP\'s Movie Search'" />
-      <v-toolbar-title
-        v-text="$route.name"
-        :style="{
-          position: 'absolute',
-          left: '50%',
-          transform: 'translateX(-50%)',
-        }"
-      />
       <v-spacer />
       <a :href="myGitData.html_url" :title="myGitData.login">
         <v-badge overlap bottom color="transparent" icon="mdi-github">
@@ -18,7 +10,7 @@
           </v-avatar>
         </v-badge>
       </a>
-      <template #extension ref="searchFields">
+      <template #extension>
         <v-spacer />
         <template v-for="bar in searchBars">
           <v-text-field
@@ -29,6 +21,7 @@
             "
             :append-icon="bar.name === 'yearBar' ? bar.icon : undefined"
             :label="bar.label"
+            :type="bar.type"
             v-model="bars[bar.name]"
             hide-details
             single-line
@@ -110,11 +103,13 @@ export default {
           name: 'searchBar',
           label: 'Search a Movie',
           icon: 'mdi-magnify',
+          type: 'text',
         },
         {
           name: 'yearBar',
           label: "Movie's Year (Optional)",
           icon: 'mdi-calendar',
+          type: 'number',
         },
       ],
     }

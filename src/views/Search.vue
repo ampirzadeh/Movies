@@ -18,6 +18,7 @@
               <v-card outlined rounded="lg">
                 <v-img
                   :lazy-src="movie.Poster"
+                  :src="movie.Poster"
                   :alt="`${movie.Title} Poster`"
                 />
                 <v-card-title v-text="movie.Title" />

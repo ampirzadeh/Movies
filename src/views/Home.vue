@@ -10,11 +10,15 @@
         <v-col
           v-for="movie in sortedMovies"
           :key="movie.imdbID"
-          cols="6"
+          cols="12"
           md="3"
         >
           <v-card outlined rounded="lg">
-            <v-img :lazy-src="movie.Poster" :alt="`${movie.Title} Poster`" />
+            <v-img
+              :lazy-src="movie.Poster"
+              :src="movie.Poster"
+              :alt="`${movie.Title} Poster`"
+            />
             <v-card-title v-text="movie.Title" />
             <v-card-subtitle v-text="movie.Year" />
             <v-card-actions>
