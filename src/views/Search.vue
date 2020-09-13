@@ -14,7 +14,7 @@
         />
         <v-container v-else>
           <v-row>
-            <v-col v-for="movie in movies" :key="movie.imdbID" cols="6" md="3">
+            <v-col v-for="movie in movies" :key="movie.imdbID" cols="12" md="3">
               <v-card outlined rounded="lg">
                 <v-img
                   :lazy-src="movie.Poster"
